@@ -489,7 +489,7 @@ std::pair<const type::StopTime*, DateTime> CachedNextStopTime::next_stop_time(co
 }
 
 CachedNextStopTimeManager::~CachedNextStopTimeManager() {
-    auto logger = log4cplus::Logger::getInstance("log");
+    auto logger = log4cplus::Logger::getInstance("logger");
     LOG4CPLUS_INFO(logger, "Cache miss : " << lru.get_nb_cache_miss() << " / " << lru.get_nb_calls());
 }
 
