@@ -514,12 +514,10 @@ RAPTOR::Journeys RAPTOR::compute_all_journeys(const map_stop_point_duration& dep
                         << ", 2nd pass = "
                         << std::chrono::duration_cast<std::chrono::milliseconds>(end_raptor - end_first_pass).count());
 
-    // LOG4CPLUS_DEBUG(raptor_logger,
-    //                 "Solutions : ");
-    // for (auto it = solutions.begin(); it != solutions.end(); ++it) {
-    //         LOG4CPLUS_DEBUG(raptor_logger,
-    //                 "" << *it );
-    // }
+    LOG4CPLUS_DEBUG(raptor_logger, "Solutions : ");
+    for (auto it = solutions.begin(); it != solutions.end(); ++it) {
+        LOG4CPLUS_DEBUG(raptor_logger, "" << *it);
+    }
 
     // return raw results
     return solutions.get_pool();

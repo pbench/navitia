@@ -582,6 +582,11 @@ class Instance(object):
         with self.socket(self.context) as socket:
             if 'request_id' in kwargs and kwargs['request_id']:
                 request.request_id = kwargs['request_id']
+                pb_request_filename = "./{}.proto".format(kwargs['request_id'])
+                f = open(pb_request_filename, "wb")
+                f.write(request.SerializeToString())
+                f.close()
+                logger.info("Wrote protobuf {}".format(pb_request_filename))
             else:
                 try:
                     request.request_id = flask.request.id
@@ -595,6 +600,10 @@ class Instance(object):
                 pb = socket.recv()
                 resp = response_pb2.Response()
                 resp.ParseFromString(pb)
+                pb_request_filename = "./{}_resp.proto".format(kwargs['request_id'])
+                f = open(pb_request_filename, "wb")
+                f.write(resp.SerializeToString())
+                f.close()
                 self.update_property(resp)  # we update the timezone and geom of the instances at each request
                 return resp
             else:

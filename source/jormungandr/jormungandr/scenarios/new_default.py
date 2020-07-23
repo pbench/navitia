@@ -1130,6 +1130,11 @@ class Scenario(simple.Scenario):
         pool = gevent.pool.Pool(app.config.get('GREENLET_POOL_SIZE', 3))
         for dep_mode, arr_mode, direct_path_type in krakens_call:
             pb_request = create_pb_request(request_type, request, dep_mode, arr_mode, direct_path_type)
+            # pb_request_filename = "./{}.proto".format(request_id)
+            # f = open(pb_request_filename, "wb")
+            # f.write(pb_request.SerializeToString())
+            # f.close()
+            # logger.info("Wrote protobuf {}", pb_request_filename)
             # we spawn a new greenlet, it won't have access to our thread local request object so we pass the request_id
             futures.append(pool.spawn(worker, dep_mode, arr_mode, instance, pb_request, _request_id=request_id))
 
